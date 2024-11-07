@@ -29,7 +29,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
-            value: "http://<load-balancer-dns-name>/api/tasks"  # Replace <load-balancer-dns-name> with actual DNS
+            value: "http://a363f09d06e7c49fe863658d78c28de8-1265141247.ap-south-1.elb.amazonaws.com/api/tasks"  # Replace <load-balancer-dns-name> with actual DNS
         ports:
         - containerPort: 3000
 
