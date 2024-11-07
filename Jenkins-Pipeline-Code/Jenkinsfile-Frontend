@@ -21,11 +21,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/psslalitha/fpjt.git'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('Sonarqube Analysis') {
             steps {
                 dir('Application-Code/frontend') {
                     withSonarQubeEnv('sonar-server') {
-                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=fpjt-pro -Dsonar.sources=. -Dsonar.host.url=http://65.0.80.210:9000 -Dsonar.login=sqa_a9e4370edafe10c255dffd8eff79f88ecc08ed14"
+                        sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=fpjt-pro\
+                        -Dsonar.projectKey=fpjt-pro '''
                     }
                 }
             }
