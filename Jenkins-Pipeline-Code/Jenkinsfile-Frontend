@@ -21,14 +21,11 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/psslalitha/fpjt.git'
             }
         }
-        stage('Sonarqube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 dir('Application-Code/frontend') {
                     withSonarQubeEnv('sonar-server') {
-                        steps {
-                            sh "${tool 'sonarqube'}/bin/sonar-scanner -Dsonar.projectKey=fpjt-pro -Dsonar.sources=. -Dsonar.host.url=http://65.0.80.210:9000 -Dsonar.login=sqa_a9e4370edafe10c255dffd8eff79f88ecc08ed14"
-                        }
-
+                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=fpjt-pro -Dsonar.sources=. -Dsonar.host.url=http://65.0.80.210:9000 -Dsonar.login=sqa_a9e4370edafe10c255dffd8eff79f88ecc08ed14"
                     }
                 }
             }
@@ -36,7 +33,7 @@ pipeline {
         stage('Quality Check') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 's-id' 
+                    waitForQualityGate abortPipeline: false, credentialsId: 's-id'
                 }
             }
         }
@@ -80,11 +77,6 @@ pipeline {
                 sh 'trivy image ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} > trivyimage.txt' 
             }
         }
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/psslalitha/fpjt.git'
-            }
-        }
         stage('Update Deployment file') {
             environment {
                 GIT_REPO_NAME = "fpjt"
@@ -109,6 +101,7 @@ pipeline {
         }
     }
 }
+
 
      
          
