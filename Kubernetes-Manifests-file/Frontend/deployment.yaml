@@ -29,6 +29,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
-            value: "http://narni.co.in/api/tasks"
+            value: "http://<load-balancer-dns-name>/api/tasks"  # Replace <load-balancer-dns-name> with actual DNS
         ports:
         - containerPort: 3000
+
