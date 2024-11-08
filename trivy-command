@@ -1,0 +1,1 @@
+ docker login ghcr.io -u psslalitha -p github token  #(github username, github token)
